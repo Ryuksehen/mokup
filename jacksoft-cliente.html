@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Coca de Jacks — Almuerzos caseros por suscripción</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange-700:#C2410C;
+  --orange-600:#EA580C;
+  --orange-500:#F1793D;
+  --orange-100:#FDEAD9;
+  --orange-50:#FEF5EC;
+  --gold-600:#C6890A;
+  --gold-100:#FBF0D8;
+  --green-600:#3E8A63;
+  --green-100:#E7F3EC;
+  --red-600:#C0392B;
+  --red-100:#FBE7E4;
+  --blue-600:#2F5F8A;
+  --blue-100:#E1EAF3;
+  --ink-900:#241C16;
+  --ink-700:#57493E;
+  --ink-500:#8C7B6C;
+  --ink-300:#CBBEAE;
+  --line:#EFE4D6;
+  --line-soft:#F7F0E6;
+  --bg:#FAF7F2;
+  --card:#FFFFFF;
+  --radius:16px;
+  --radius-sm:10px;
+  --shadow-sm:0 1px 3px rgba(90,60,20,.07);
+  --shadow-md:0 12px 28px rgba(90,60,20,.10);
+  --mono:'JetBrains Mono',monospace;
+  --display:'Manrope',sans-serif;
+  --body:'Inter',sans-serif;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{margin:0;font-family:var(--body);background:var(--bg);color:var(--ink-900);-webkit-font-smoothing:antialiased;font-size:15px;line-height:1.5;}
+h1,h2,h3,h4{font-family:var(--display);margin:0;color:var(--ink-900);}
+p{margin:0;}
+a{color:inherit;text-decoration:none;}
+button{font-family:var(--body);cursor:pointer;}
+img{max-width:100%;display:block;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
+#site-header .wrap{max-width:none;width:100%;margin:0;padding:0 28px;}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange-600);font-weight:700;}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;font-size:14px;font-weight:700;padding:12px 20px;border:1.5px solid transparent;white-space:nowrap;font-family:var(--body);}
+.btn-primary{background:var(--orange-600);color:#fff;box-shadow:0 8px 18px rgba(234,88,12,.28);}
+.btn-primary:hover{background:var(--orange-700);}
+.btn-ghost{background:#fff;color:var(--ink-900);border-color:var(--line);}
+.btn-ghost:hover{border-color:var(--ink-300);}
+.btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.55);}
+.btn-outline-light:hover{background:rgba(255,255,255,.12);}
+.btn-sm{padding:9px 14px;font-size:12.6px;}
+.btn-block{width:100%;justify-content:center;}
+.pill-tag{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;padding:5px 11px;border-radius:20px;}
+.section{padding:86px 0;}
+.section-head{max-width:600px;margin:0 auto 46px auto;text-align:center;}
+.section-head h2{font-size:32px;letter-spacing:-.4px;margin-top:10px;}
+.section-head p{color:var(--ink-500);margin-top:12px;font-size:15px;}
+.card-surface{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-sm);}
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-thumb{background:#E6D8C6;border-radius:6px;}
+
+/* ---------- Header ---------- */
+#site-header{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:26px;height:76px;}
+.logo{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+.logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--orange-500),var(--orange-700));display:flex;align-items:center;justify-content:center;font-size:19px;}
+.logo-text{font-family:var(--display);font-weight:800;font-size:16.5px;line-height:1.15;}
+.logo-text .sub{display:block;font-size:9.5px;color:var(--ink-500);font-family:var(--mono);letter-spacing:.6px;text-transform:uppercase;font-weight:500;}
+.main-nav{display:flex;align-items:center;justify-content:center;gap:26px;flex:1 1 auto;min-width:0;}
+.main-nav a{font-size:13.6px;font-weight:600;color:var(--ink-700);white-space:nowrap;}
+.main-nav a:hover{color:var(--orange-600);}
+.header-actions{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
+.link-btn{font-size:13.4px;font-weight:700;color:var(--ink-700);padding:8px 6px;}
+.link-btn:hover{color:var(--orange-600);}
+@media(max-width:980px){.main-nav{display:none;}}
+
+/* ---------- Hero ---------- */
+#hero{padding:64px 0 90px 0;position:relative;overflow:hidden;}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center;}
+.hero-title{font-size:46px;line-height:1.09;letter-spacing:-1px;margin:16px 0 18px 0;}
+.hero-title em{font-style:normal;color:var(--orange-600);}
+.hero-sub{font-size:16px;color:var(--ink-500);max-width:480px;line-height:1.6;}
+.hero-actions{display:flex;gap:12px;margin-top:30px;flex-wrap:wrap;}
+.trust-row{display:flex;gap:26px;margin-top:38px;flex-wrap:wrap;}
+.trust-item .n{font-family:var(--mono);font-weight:700;font-size:20px;color:var(--ink-900);}
+.trust-item .l{font-size:11.5px;color:var(--ink-500);font-weight:600;}
+
+.hero-visual{position:relative;height:460px;}
+.hero-blob{position:absolute;inset:20px;border-radius:44% 56% 60% 40% / 48% 42% 58% 52%;background:linear-gradient(150deg,var(--orange-100),var(--gold-100) 60%,#fff);border:1px solid var(--line);box-shadow:var(--shadow-md);display:flex;align-items:center;justify-content:center;}
+.hero-plate{font-size:150px;filter:drop-shadow(0 18px 30px rgba(120,70,20,.18));}
+.float-card{position:absolute;background:#fff;border:1px solid var(--line);border-radius:13px;box-shadow:var(--shadow-md);padding:11px 14px;display:flex;align-items:center;gap:10px;font-size:12px;}
+.float-card .ic{width:32px;height:32px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.float-card .t{font-weight:700;color:var(--ink-900);}
+.float-card .s{color:var(--ink-500);font-size:10.8px;}
+.fc1{top:12px;left:-10px;}
+.fc2{bottom:30px;right:-16px;}
+.fc3{top:52%;left:-30px;}
+@media(max-width:980px){.hero-grid{grid-template-columns:1fr;}.hero-visual{margin-top:20px;height:340px;}.hero-title{font-size:34px;}}
+
+/* ---------- Plans ---------- */
+#planes{background:#fff;}
+.plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+.plan-card{padding:28px;position:relative;}
+.plan-card.featured{border-color:var(--orange-500);box-shadow:0 0 0 3px var(--orange-100),var(--shadow-md);}
+.plan-badge{position:absolute;top:-13px;left:28px;background:var(--orange-600);color:#fff;font-size:10.8px;font-weight:800;padding:5px 12px;border-radius:20px;letter-spacing:.3px;}
+.plan-name{font-size:16px;font-weight:800;}
+.plan-price{font-family:var(--mono);font-weight:800;font-size:32px;margin:14px 0 2px 0;}
+.plan-price span{font-size:13px;color:var(--ink-500);font-weight:500;font-family:var(--body);}
+.plan-count{font-size:12.6px;color:var(--orange-600);font-weight:700;margin-bottom:18px;}
+.plan-list{list-style:none;padding:0;margin:0 0 22px 0;display:flex;flex-direction:column;gap:11px;}
+.plan-list li{display:flex;gap:9px;font-size:13px;color:var(--ink-700);align-items:flex-start;}
+.plan-list li svg{flex-shrink:0;margin-top:2px;color:var(--green-600);}
+@media(max-width:900px){.plans-grid{grid-template-columns:1fr;}}
+
+/* ---------- Como funciona ---------- */
+.steps-row{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;}
+.step-card{padding:22px 16px;text-align:left;}
+.step-num{font-family:var(--mono);font-size:11px;color:var(--orange-600);font-weight:700;}
+.step-ic{width:42px;height:42px;border-radius:11px;background:var(--orange-100);color:var(--orange-600);display:flex;align-items:center;justify-content:center;margin:12px 0 12px 0;}
+.step-card h4{font-size:13.5px;margin-bottom:6px;}
+.step-card p{font-size:12px;color:var(--ink-500);line-height:1.5;}
+@media(max-width:980px){.steps-row{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:620px){.steps-row{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- Menus ---------- */
+#menus{background:#fff;}
+.menu-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+.menu-card{overflow:hidden;}
+.menu-photo{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px;}
+.menu-body{padding:14px 15px 16px 15px;}
+.menu-day{font-family:var(--mono);font-size:10.3px;color:var(--orange-600);text-transform:uppercase;letter-spacing:.4px;font-weight:700;}
+.menu-body h4{font-size:13.6px;margin:5px 0 6px 0;}
+.menu-body p{font-size:11.6px;color:var(--ink-500);line-height:1.45;}
+@media(max-width:980px){.menu-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:620px){.menu-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- Cobertura ---------- */
+.cover-grid{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:center;}
+.cover-map{height:380px;border-radius:var(--radius);position:relative;overflow:hidden;background:linear-gradient(135deg,#F5EEE2,#FBF3E7);border:1px solid var(--line);}
+.cover-grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(194,65,12,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(194,65,12,.05) 1px,transparent 1px);background-size:30px 30px;}
+.zone-blob{position:absolute;border-radius:50%;opacity:.22;}
+.zone-pin{position:absolute;width:13px;height:13px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2px solid #fff;box-shadow:0 2px 5px rgba(0,0,0,.18);}
+.zone-list{display:flex;flex-direction:column;gap:10px;margin-top:20px;}
+.zone-item{display:flex;align-items:center;justify-content:space-between;padding:12px 15px;border:1px solid var(--line);border-radius:11px;background:#fff;}
+.zone-item .n{font-size:13px;font-weight:700;}
+@media(max-width:900px){.cover-grid{grid-template-columns:1fr;}}
+
+/* ---------- Beneficios ---------- */
+#beneficios{background:#fff;}
+.benefit-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
+.benefit-card{padding:24px 18px;text-align:center;}
+.benefit-ic{width:46px;height:46px;border-radius:13px;background:var(--gold-100);color:var(--gold-600);display:flex;align-items:center;justify-content:center;margin:0 auto 14px auto;}
+.benefit-card h4{font-size:13.4px;margin-bottom:6px;}
+.benefit-card p{font-size:11.6px;color:var(--ink-500);line-height:1.5;}
+@media(max-width:980px){.benefit-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:620px){.benefit-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- Testimonios ---------- */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.testi-card{padding:24px;}
+.stars{color:var(--gold-600);font-size:13px;letter-spacing:2px;margin-bottom:12px;}
+.testi-card p{font-size:13.4px;color:var(--ink-700);line-height:1.65;}
+.testi-who{display:flex;align-items:center;gap:10px;margin-top:18px;}
+.testi-avatar{width:38px;height:38px;border-radius:50%;background:var(--orange-100);color:var(--orange-700);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:13px;}
+.testi-name{font-size:12.6px;font-weight:700;}
+.testi-plan{font-size:10.8px;color:var(--ink-500);font-family:var(--mono);}
+@media(max-width:900px){.testi-grid{grid-template-columns:1fr;}}
+
+/* ---------- FAQ ---------- */
+#faq{background:#fff;}
+.faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:12px;}
+.faq-item{border:1px solid var(--line);border-radius:13px;overflow:hidden;}
+.faq-q{width:100%;text-align:left;background:#fff;border:none;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;font-size:14px;font-weight:700;color:var(--ink-900);}
+.faq-chev{transition:transform .18s ease;color:var(--orange-600);flex-shrink:0;}
+.faq-item.open .faq-chev{transform:rotate(180deg);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .2s ease;}
+.faq-item.open .faq-a{max-height:200px;}
+.faq-a-inner{padding:0 20px 18px 20px;font-size:13.2px;color:var(--ink-500);line-height:1.6;}
+
+/* ---------- CTA band ---------- */
+.cta-band{background:linear-gradient(120deg,var(--orange-700),var(--orange-500));border-radius:24px;padding:52px 46px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;color:#fff;}
+.cta-band h3{font-size:26px;max-width:460px;color:#fff;}
+.cta-band p{color:rgba(255,255,255,.85);margin-top:8px;font-size:13.6px;max-width:440px;}
+
+/* ---------- Footer ---------- */
+#site-footer{background:var(--ink-900);color:#DCD1C4;padding:64px 0 26px 0;}
+.footer-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:32px;}
+.footer-brand .logo-text{color:#fff;}
+.footer-brand p{font-size:12.8px;color:#B7A997;margin-top:14px;line-height:1.6;max-width:280px;}
+.footer-col h5{font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#fff;font-family:var(--mono);margin-bottom:16px;}
+.footer-col a,.footer-col p{display:block;font-size:12.8px;color:#B7A997;margin-bottom:10px;}
+.footer-col a:hover{color:#fff;}
+.social-row{display:flex;gap:10px;margin-top:16px;}
+.social-ic{width:34px;height:34px;border-radius:9px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:#fff;}
+.footer-bottom{margin-top:50px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;font-size:11.6px;color:#8A7B68;flex-wrap:wrap;gap:10px;}
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;}}
+
+/* =========================================================
+   AUTH SCREENS (login / register) — client, orange theme
+   ========================================================= */
+.auth-wrap{min-height:100vh;display:flex;}
+.auth-side{flex:1;background:linear-gradient(160deg,var(--orange-700),var(--orange-500) 130%);position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:44px;color:#fff;}
+.auth-side .glow{position:absolute;width:480px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.18),transparent 65%);bottom:-140px;left:-120px;}
+.auth-quote{font-family:var(--display);font-weight:800;font-size:25px;line-height:1.3;max-width:400px;position:relative;z-index:1;}
+.auth-meta{font-size:12px;color:#FCE3CD;font-family:var(--mono);position:relative;z-index:1;}
+.auth-form-side{width:460px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:#fff;overflow-y:auto;padding:40px 0;}
+.auth-card{width:340px;}
+@media(max-width:900px){.auth-side{display:none;}.auth-form-side{width:100%;}}
+.field{margin-bottom:14px;}
+.field label{display:block;font-size:12px;font-weight:700;color:var(--ink-700);margin-bottom:6px;}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:9px;height:38px;padding:0 12px;font-size:13.4px;outline:none;color:var(--ink-900);background:#fff;font-family:var(--body);}
+.field textarea{height:72px;padding:9px 12px;resize:vertical;}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--orange-500);box-shadow:0 0 0 3px var(--orange-100);}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.radio-row{display:flex;gap:10px;}
+.radio-opt{flex:1;border:1px solid var(--line);border-radius:9px;padding:10px 12px;font-size:12.6px;font-weight:600;display:flex;align-items:center;gap:8px;}
+.radio-opt.sel{border-color:var(--orange-500);background:var(--orange-50);color:var(--orange-700);}
+
+/* =========================================================
+   CLIENT PORTAL SHELL — distinct from admin BackOffice
+   ========================================================= */
+#portal-app{display:flex;min-height:100vh;background:var(--bg);}
+#p-sidebar{width:250px;flex-shrink:0;background:#fff;border-right:1px solid var(--line);display:flex;flex-direction:column;height:100vh;position:sticky;top:0;}
+.p-brand{display:flex;align-items:center;gap:10px;padding:22px 20px 18px 20px;}
+.p-nav{padding:8px 14px;flex:1;}
+.p-nav-item{display:flex;align-items:center;gap:11px;width:100%;padding:11px 13px;border:none;background:transparent;border-radius:11px;color:var(--ink-700);font-size:13.3px;font-weight:600;text-align:left;margin-bottom:3px;}
+.p-nav-item:hover{background:var(--orange-50);}
+.p-nav-item.active{background:var(--orange-600);color:#fff;box-shadow:0 6px 14px rgba(234,88,12,.28);}
+.p-nav-item .ic-wrap{width:20px;display:flex;justify-content:center;flex-shrink:0;}
+.p-sidebar-foot{padding:16px 20px;border-top:1px solid var(--line-soft);}
+.p-help-card{background:var(--orange-50);border-radius:13px;padding:14px;font-size:11.8px;color:var(--ink-700);}
+.p-help-card b{display:block;margin-bottom:4px;font-size:12.6px;}
+
+#p-main{flex:1;min-width:0;}
+#p-topbar{height:70px;background:transparent;display:flex;align-items:center;padding:0 34px;gap:16px;}
+.p-title-block{flex:1;}
+.p-title-block h2{font-size:19px;}
+.p-title-block .sub{font-size:12.4px;color:var(--ink-500);margin-top:2px;}
+.p-avatar{width:38px;height:38px;border-radius:50%;background:var(--orange-100);color:var(--orange-700);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:13.5px;}
+.p-icon-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:#fff;display:flex;align-items:center;justify-content:center;color:var(--ink-700);position:relative;}
+#p-content{padding:6px 34px 60px 34px;}
+
+.p-hero-card{background:linear-gradient(120deg,var(--orange-600),var(--orange-500));border-radius:20px;padding:28px 30px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:22px;}
+.p-hero-card h3{color:#fff;font-size:21px;}
+.p-hero-card p{color:rgba(255,255,255,.88);font-size:13px;margin-top:6px;max-width:420px;}
+.p-hero-emoji{font-size:64px;filter:drop-shadow(0 10px 16px rgba(0,0,0,.15));}
+
+.p-kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:22px;}
+.p-kpi{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 19px;}
+.p-kpi .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:12px;}
+.p-kpi .lbl{font-size:11.6px;color:var(--ink-500);font-weight:600;}
+.p-kpi .val{font-family:var(--mono);font-weight:700;font-size:21px;margin-top:4px;}
+
+.p-panel{background:#fff;border:1px solid var(--line);border-radius:16px;}
+.p-panel-head{padding:18px 22px;border-bottom:1px solid var(--line-soft);display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;}
+.p-panel-head h3{font-size:15px;}
+.p-panel-body{padding:20px 22px;}
+.p-grid-2{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:start;}
+@media(max-width:980px){.p-grid-2{grid-template-columns:1fr;}}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px;}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;}
+.badge-ok{background:var(--green-100);color:var(--green-600);}.badge-ok::before{background:var(--green-600);}
+.badge-warn{background:var(--gold-100);color:var(--gold-600);}.badge-warn::before{background:var(--gold-600);}
+.badge-off{background:#F0EBE3;color:var(--ink-500);}.badge-off::before{background:var(--ink-300);}
+.badge-bad{background:var(--red-100);color:var(--red-600);}.badge-bad::before{background:var(--red-600);}
+.badge-info{background:var(--blue-100);color:var(--blue-600);}.badge-info::before{background:var(--blue-600);}
+
+.p-timeline{display:flex;justify-content:space-between;position:relative;padding:10px 6px 0 6px;}
+.p-timeline::before{content:"";position:absolute;top:31px;left:36px;right:36px;height:3px;background:var(--line);border-radius:3px;}
+.p-timeline .fill{position:absolute;top:31px;left:36px;height:3px;background:var(--orange-600);border-radius:3px;z-index:1;}
+.tl-step{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;flex:1;}
+.tl-dot{width:40px;height:40px;border-radius:50%;background:#fff;border:3px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink-300);}
+.tl-step.done .tl-dot{border-color:var(--orange-600);background:var(--orange-600);color:#fff;}
+.tl-step.current .tl-dot{border-color:var(--orange-600);color:var(--orange-600);box-shadow:0 0 0 5px var(--orange-100);}
+.tl-step .t{font-size:12px;font-weight:700;color:var(--ink-700);text-align:center;}
+.tl-step .s{font-size:10.6px;color:var(--ink-300);font-family:var(--mono);}
+
+table{width:100%;border-collapse:collapse;}
+thead th{text-align:left;font-size:10.6px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-300);font-family:var(--mono);font-weight:500;padding:11px 4px;border-bottom:1px solid var(--line);}
+tbody td{padding:13px 4px;border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--ink-700);}
+tbody tr:last-child td{border:none;}
+td.strong{color:var(--ink-900);font-weight:700;}
+td.mono{font-family:var(--mono);font-size:12.3px;}
+
+.p-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.p-cal-dow{font-size:10px;color:var(--ink-300);text-transform:uppercase;text-align:center;font-family:var(--mono);padding-bottom:3px;}
+.p-cal-cell{aspect-ratio:1;border:1.5px solid var(--line-soft);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:600;color:var(--ink-700);background:#fff;}
+.p-cal-cell.off{color:var(--ink-300);border-color:transparent;}
+.p-cal-cell.sel{background:var(--orange-600);border-color:var(--orange-600);color:#fff;}
+.p-cal-cell:not(.off):hover{border-color:var(--orange-500);cursor:pointer;}
+
+.upload-box{border:1.5px dashed var(--line);border-radius:13px;padding:26px;text-align:center;color:var(--ink-500);font-size:12.6px;}
+.thumb-row{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;}
+.thumb{width:56px;height:56px;border-radius:9px;background:var(--orange-50);display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid var(--line);}
+
+.chip-tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;padding:5px 10px;border-radius:16px;background:var(--orange-50);color:var(--orange-700);margin:2px 4px 2px 0;}
+.chip-tag button{border:none;background:transparent;color:inherit;font-size:12px;padding:0;line-height:1;}
+
+.map-mock{position:relative;height:280px;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,#F5EEE2,#FBF3E7);border:1px solid var(--line);}
+.map-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(194,65,12,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(194,65,12,.05) 1px,transparent 1px);background-size:28px 28px;}
+.map-route-line{position:absolute;height:3px;background:var(--orange-500);border-radius:3px;}
+.map-pin{position:absolute;width:16px;height:16px;border-radius:50% 50% 50% 0;border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.2);}
+.map-eta{position:absolute;top:14px;left:14px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 15px;box-shadow:var(--shadow-sm);font-size:12px;}
+
+#toast-wrap{position:fixed;bottom:22px;right:22px;display:flex;flex-direction:column;gap:8px;z-index:200;}
+.toast{background:var(--ink-900);color:#fff;padding:12px 16px;border-radius:11px;font-size:12.8px;box-shadow:var(--shadow-md);display:flex;align-items:center;gap:9px;animation:slidein .18s ease;}
+@keyframes slidein{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
+#modal-wrap{position:fixed;inset:0;background:rgba(36,28,22,.45);display:none;align-items:center;justify-content:center;z-index:300;}
+#modal-wrap.open{display:flex;}
+.modal-box{background:#fff;border-radius:16px;padding:24px;width:380px;box-shadow:var(--shadow-md);}
+.modal-box h3{font-size:16px;margin-bottom:8px;}
+.modal-box p{font-size:12.8px;color:var(--ink-500);line-height:1.55;}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:20px;}
+</style>
+</head>
+<body>
+<div id="toast-wrap"></div>
+<div id="modal-wrap"><div class="modal-box" id="modal-box"></div></div>
+<div id="root"></div>
+
+<script>
+/* ============================= ICONS ============================= */
+function ic(name,size,strokeW){
+  size=size||18;strokeW=strokeW||1.8;
+  const s='width="'+size+'" height="'+size+'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="'+strokeW+'" stroke-linecap="round" stroke-linejoin="round"';
+  const map={
+    home:'<path d="M4 11.5 12 4l8 7.5"/><path d="M6 10v9h5v-5h2v5h5v-9"/>',
+    sub:'<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M8 9h8M8 13h5"/>',
+    card:'<rect x="3" y="6" width="18" height="13" rx="2.5"/><path d="M3 10.5h18"/><path d="M7 15h4"/>',
+    plate:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/>',
+    truck:'<rect x="2.5" y="7" width="12" height="9" rx="1"/><path d="M14.5 10h3.7L21 13.2V16h-6.5z"/><circle cx="7" cy="18" r="1.7"/><circle cx="17.5" cy="18" r="1.7"/>',
+    pause:'<rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/>',
+    alert:'<path d="M12 3.5 21.5 20h-19z"/><path d="M12 10v4"/><path d="M12 17h.01"/>',
+    user:'<circle cx="12" cy="8.2" r="3.6"/><path d="M4.5 20c0-3.6 3.3-6 7.5-6s7.5 2.4 7.5 6"/>',
+    bell:'<path d="M6 10a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6Z"/><path d="M10 20a2 2 0 0 0 4 0"/>',
+    logout:'<path d="M9 20H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h4"/><path d="M16 16l4-4-4-4"/><path d="M20 12H9"/>',
+    check:'<circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.7 2.7L16 9.5"/>',
+    chevD:'<path d="M6 9l6 6 6-6"/>',
+    upload:'<path d="M12 16V5M7.5 9.5 12 5l4.5 4.5M4 19h16"/>',
+    calendar:'<rect x="3.5" y="5" width="17" height="15" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>',
+    camera:'<rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M8 7l1.6-2.5h4.8L16 7"/><circle cx="12" cy="13.5" r="3.4"/>',
+    lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/>',
+    map:'<path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+    box:'<path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/>',
+    leaf:'<path d="M4 20c8 0 15-6 15-16C9 4 4 12 4 20Z"/><path d="M4 20c3-6 7-9 15-16"/>',
+    heart:'<path d="M12 20s-7.5-4.6-9.7-9.3C.9 6.9 3 3.8 6.5 3.8c2 0 3.6 1.1 4.5 2.6.9-1.5 2.5-2.6 4.5-2.6 3.5 0 5.6 3.1 4.2 6.9C19.5 15.4 12 20 12 20Z"/>',
+    star:'<path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.8z"/>',
+    check2:'<circle cx="12" cy="12" r="10"/><path d="M8 12.3l2.8 2.8L16.3 9"/>',
+    chevR:'<path d="M9 6l6 6-6 6"/>',
+    phone:'<path d="M6.5 3h3l1.5 4-2 2c.9 2 2.6 3.7 4.6 4.6l2-2 4 1.5v3a2 2 0 0 1-2.2 2C10.8 17.6 6.4 13.2 5.5 6.2 5.4 4.4 5.4 3 6.5 3Z"/>',
+    mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 6.5 12 13l8.5-6.5"/>',
+    pin:'<path d="M12 21s-7-6.4-7-11.5A7 7 0 0 1 19 9.5C19 14.6 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/>',
+    instagram:'<rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17" cy="7" r="1"/>',
+    facebook:'<path d="M14 21v-8h2.7l.4-3.3H14V7.6c0-1 .3-1.6 1.7-1.6H17V3.1C16.6 3 15.6 3 14.4 3 12 3 10.4 4.5 10.4 7.3v2.4H7.7V13h2.7v8Z"/>',
+    whatsapp:'<path d="M4 20l1.3-4A8 8 0 1 1 8.5 19Z"/><path d="M8.5 9.5c.3 2.3 2.2 4.2 4.5 4.5"/>'
+  };
+  return '<svg '+s+'>'+(map[name]||map.box)+'</svg>';
+}
+function toast(msg){
+  const w=document.getElementById('toast-wrap');
+  const t=document.createElement('div');t.className='toast';t.innerHTML=ic('check',15)+'<span>'+msg+'</span>';
+  w.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity .25s';setTimeout(()=>t.remove(),250);},2600);
+}
+function openModal(title,body,confirmLabel,onConfirm,confirmColor){
+  const w=document.getElementById('modal-wrap');
+  document.getElementById('modal-box').innerHTML='<h3>'+title+'</h3><p>'+body+'</p>'+
+    '<div class="modal-actions"><button class="btn btn-ghost" id="modal-cancel">Cancelar</button>'+
+    '<button class="btn btn-primary" id="modal-ok" style="background:'+(confirmColor||'var(--orange-600)')+'">'+confirmLabel+'</button></div>';
+  w.classList.add('open');
+  document.getElementById('modal-cancel').onclick=()=>w.classList.remove('open');
+  document.getElementById('modal-ok').onclick=()=>{w.classList.remove('open');if(onConfirm)onConfirm();};
+}
+document.getElementById('modal-wrap').addEventListener('click',e=>{if(e.target.id==='modal-wrap')e.currentTarget.classList.remove('open');});
+function badge(status){
+  const map={'Activa':'badge-ok','Activo':'badge-ok','Entregado':'badge-ok','Al día':'badge-ok','Resuelto':'badge-ok',
+    'Pendiente':'badge-warn','En revisión':'badge-warn','Empacado':'badge-warn',
+    'En preparación':'badge-info','En ruta':'badge-info',
+    'Vencida':'badge-bad','Cancelada':'badge-bad','Rechazado':'badge-bad'};
+  return '<span class="badge '+(map[status]||'badge-off')+'">'+status+'</span>';
+}
+
+/* ============================= LANDING PAGE ============================= */
+function renderLanding(){
+  const root=document.getElementById('root');
+  let h='';
+  h+=header();
+  h+=hero();
+  h+=planesSection();
+  h+=comoFunciona();
+  h+=menusSection();
+  h+=coberturaSection();
+  h+=beneficiosSection();
+  h+=testimoniosSection();
+  h+=faqSection();
+  h+=ctaBand();
+  h+=footer();
+  root.innerHTML=h;
+  wireLanding();
+}
+
+function header(){
+  return '<header id="site-header"><div class="wrap header-inner">'+
+   '<div class="logo"><div class="logo-mark"><img src="logo.png" alt="La Coca de Jacks"></div><div class="logo-text">La Coca de Jacks<span class="sub">Almuerzos por suscripción</span></div></div>'+
+   '<nav class="main-nav">'+
+     '<a href="#hero">Inicio</a><a href="#planes">Planes</a><a href="#como-funciona">Cómo funciona</a>'+
+     '<a href="#menus">Menús</a><a href="#cobertura">Cobertura</a><a href="#faq">Preguntas frecuentes</a><a href="#contacto">Contacto</a>'+
+   '</nav>'+
+   '<div class="header-actions">'+
+     '<a href="#" class="link-btn" data-go="login">Iniciar sesión</a>'+
+     '<a href="#" class="btn btn-ghost btn-sm" data-go="register">Registrarse</a>'+
+     '<a href="#planes" class="btn btn-primary btn-sm">Suscribirme ahora</a>'+
+   '</div></div></header>';
+}
+
+function hero(){
+  return '<section id="hero"><div class="wrap hero-grid">'+
+   '<div><span class="eyebrow">● Alimentación casera, por suscripción</span>'+
+   '<h1 class="hero-title">Almuerzos caseros por suscripción, <em>entregados en la puerta de tu casa.</em></h1>'+
+   '<p class="hero-sub">Olvídate de cocinar todos los días. Elige tu plan, cuéntanos tus preferencias y recibe un almuerzo casero recién preparado, listo para disfrutar — sin salir de casa.</p>'+
+   '<div class="hero-actions"><a href="#planes" class="btn btn-primary">Ver planes</a><a href="#" class="btn btn-ghost" data-go="register">Registrarme</a></div>'+
+   '<div class="trust-row"><div class="trust-item"><div class="n">+400</div><div class="l">Familias suscritas</div></div>'+
+   '<div class="trust-item"><div class="n">9</div><div class="l">Zonas de cobertura</div></div>'+
+   '<div class="trust-item"><div class="n">100%</div><div class="l">Ingredientes frescos</div></div></div></div>'+
+   '<div class="hero-visual"><div class="hero-blob"><div class="hero-plate">'+ic('plate',140)+'</div></div>'+
+   '<div class="float-card fc1"><div class="ic" style="background:var(--green-100);color:var(--green-600)">'+ic('leaf',16)+'</div><div><div class="t">Hoy: Sancocho de gallina</div><div class="s">Menú del día</div></div></div>'+
+   '<div class="float-card fc2"><div class="ic" style="background:var(--orange-100);color:var(--orange-700)">'+ic('truck',16)+'</div><div><div class="t">En camino</div><div class="s">Llega en 12 min</div></div></div>'+
+   '<div class="float-card fc3"><div class="ic" style="background:var(--gold-100);color:var(--gold-600)">'+ic('star',16)+'</div><div><div class="t">4.9/5</div><div class="s">+1.200 reseñas</div></div></div>'+
+   '</div></div></section>';
+}
+
+function planesSection(){
+  const plans=[
+    {name:'Plan Semanal',price:'68.000',count:'5 almuerzos',feat:['5 entregas de lunes a viernes','Menú rotativo semanal','Cambios hasta 48h antes','Soporte por WhatsApp'],featured:false},
+    {name:'Plan Quincenal',price:'128.000',count:'10 almuerzos',feat:['10 entregas en 15 días','Menú variado sin repetir','1 suspensión incluida','Soporte prioritario'],featured:true},
+    {name:'Plan Mensual',price:'240.000',count:'20 almuerzos',feat:['20 entregas al mes','Mayor ahorro por almuerzo','2 suspensiones incluidas','Atención personalizada'],featured:false}
+  ];
+  let h='<section id="planes" class="section"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Planes</span><h2>Elige el plan que se ajuste a tu semana</h2><p>Todos los planes incluyen almuerzos caseros, entrega puntual y la posibilidad de elegir tu proteína preferida.</p></div>';
+  h+='<div class="plans-grid">';
+  plans.forEach(p=>{
+    h+='<div class="card-surface plan-card'+(p.featured?' featured':'')+'">';
+    if(p.featured)h+='<div class="plan-badge">Más elegido</div>';
+    h+='<div class="plan-name">'+p.name+'</div><div class="plan-price">$'+p.price+'<span> COP</span></div><div class="plan-count">'+p.count+'</div>';
+    h+='<ul class="plan-list">'+p.feat.map(f=>'<li>'+ic('check2',15)+'<span>'+f+'</span></li>').join('')+'</ul>';
+    h+='<button class="btn btn-primary btn-block" data-go="register">Suscribirme</button></div>';
+  });
+  h+='</div></div></section>';
+  return h;
+}
+
+function comoFunciona(){
+  const steps=[
+    ['Elige un plan','Semanal, quincenal o mensual, según tu ritmo.'],
+    ['Regístrate','Crea tu cuenta con tus datos y dirección de entrega.'],
+    ['Realiza la transferencia','Paga de forma segura por transferencia bancaria.'],
+    ['Sube el comprobante','Adjunta tu comprobante desde el portal del cliente.'],
+    ['Se valida el pago','Nuestro equipo confirma tu pago en minutos.'],
+    ['Recibe tus almuerzos','Empieza a disfrutar tus almuerzos caseros en casa.']
+  ];
+  let h='<section id="como-funciona" class="section" style="background:#fff"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Cómo funciona</span><h2>De la suscripción a tu mesa, en 6 pasos</h2></div>';
+  h+='<div class="steps-row">';
+  steps.forEach((s,i)=>{
+    h+='<div class="card-surface step-card"><span class="step-num">0'+(i+1)+'</span><div class="step-ic">'+ic(['sub','user','card','upload','check','truck'][i],20)+'</div><h4>'+s[0]+'</h4><p>'+s[1]+'</p></div>';
+  });
+  h+='</div></div></section>';
+  return h;
+}
+
+function menusSection(){
+  const menu=[
+    ['LUN','plate','Bandeja paisa liviana','Fríjol, arroz, carne, plátano y aguacate.'],
+    ['MAR','sub','Sancocho de gallina','Gallina criolla, papa, yuca y mazorca.'],
+    ['MIÉ','leaf','Bowl vegetariano','Quinua, garbanzo, aguacate y vegetales.'],
+    ['JUE','plate','Pollo a la plancha','Pollo, ensalada fresca y arroz integral.'],
+    ['VIE','home','Arroz con pollo casero','Receta tradicional con verduras salteadas.']
+  ];
+  let h='<section id="menus" class="section"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Menús</span><h2>Así se ve una semana con nosotros</h2><p>Menú rotativo, siempre casero y variado. Ajustamos ingredientes según tus restricciones alimentarias.</p></div>';
+  h+='<div class="menu-grid">';
+  menu.forEach((m,i)=>{
+    const bgs=['var(--orange-100)','var(--gold-100)','var(--green-100)','var(--orange-100)','var(--gold-100)'];
+    h+='<div class="card-surface menu-card"><div class="menu-photo" style="background:'+bgs[i]+'">'+ic(m[1],64)+'</div>'+
+       '<div class="menu-body"><div class="menu-day">'+m[0]+'</div><h4>'+m[2]+'</h4><p>'+m[3]+'</p></div></div>';
+  });
+  h+='</div></div></section>';
+  return h;
+}
+
+function coberturaSection(){
+  let h='<section id="cobertura" class="section" style="background:#fff"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Cobertura</span><h2>¿Entregamos en tu barrio?</h2><p>Por ahora operamos en 9 zonas habilitadas de Medellín y su área metropolitana. Si tu dirección está fuera de cobertura, puedes dejarnos tus datos y te avisaremos apenas lleguemos.</p></div>';
+  h+='<div class="cover-grid">';
+  h+='<div class="cover-map"><div class="cover-grid-lines"></div>'+
+     '<div class="zone-blob" style="width:190px;height:190px;top:8%;left:12%;background:#EA580C"></div>'+
+     '<div class="zone-blob" style="width:160px;height:160px;top:45%;left:50%;background:#C6890A"></div>'+
+     '<div class="zone-blob" style="width:140px;height:140px;top:60%;left:15%;background:#3E8A63"></div>'+
+     '<div class="zone-pin" style="top:14%;left:20%;background:#EA580C"></div>'+
+     '<div class="zone-pin" style="top:22%;left:30%;background:#EA580C"></div>'+
+     '<div class="zone-pin" style="top:50%;left:58%;background:#C6890A"></div>'+
+     '<div class="zone-pin" style="top:66%;left:22%;background:#3E8A63"></div>'+
+     '</div>';
+  h+='<div><div class="zone-list">';
+  [['El Poblado','Activa'],['Laureles','Activa'],['Envigado','Activa'],['Belén','Activa'],['Centro','Activa'],['Sabaneta','Próximamente']].forEach(z=>{
+    h+='<div class="zone-item"><span class="n">'+z[0]+'</span>'+badge(z[1]==='Activa'?'Activa':'Pendiente')+'</div>';
+  });
+  h+='</div></div>';
+  h+='</div></div></section>';
+  return h;
+}
+
+function beneficiosSection(){
+  const b=[['leaf','Almuerzos caseros','Preparados como en casa, sin conservantes.'],['truck','Entrega diaria','Puntual, directo a la puerta de tu casa.'],['sub','Menús variados','Rotamos las recetas para que no te aburras.'],['heart','Ingredientes frescos','Seleccionados el mismo día de preparación.'],['user','Atención personalizada','Ajustamos tu menú a tus restricciones.']];
+  let h='<section id="beneficios" class="section"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Por qué elegirnos</span><h2>Comer bien, sin complicarte</h2></div>';
+  h+='<div class="benefit-grid">';
+  b.forEach(x=>{h+='<div class="card-surface benefit-card"><div class="benefit-ic">'+ic(x[0],21)+'</div><h4>'+x[1]+'</h4><p>'+x[2]+'</p></div>';});
+  h+='</div></div></section>';
+  return h;
+}
+
+function testimoniosSection(){
+  const t=[
+    ['Laura Gómez','Plan Mensual','"Desde que me suscribí no he vuelto a pensar qué cocinar. Los almuerzos llegan siempre a tiempo y saben a comida de casa."'],
+    ['Andrés Ruiz','Plan Quincenal','"Lo que más valoro es que respetan mis restricciones alimentarias. Nunca he tenido un problema con mis alergias."'],
+    ['Sofía Marín','Plan Semanal','"El portal del cliente es súper fácil de usar, puedo ver en tiempo real cuándo llega mi domiciliario."']
+  ];
+  let h='<section class="section" style="background:#fff"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Testimonios</span><h2>Lo que dicen nuestras familias</h2></div>';
+  h+='<div class="testi-grid">';
+  t.forEach(x=>{
+    h+='<div class="card-surface testi-card"><div class="stars">'+Array(5).fill(ic('star',12)).join('')+'</div><p>'+x[2]+'</p>'+ 
+       '<div class="testi-who"><div class="testi-avatar">'+x[0].split(' ').map(w=>w[0]).join('')+'</div><div><div class="testi-name">'+x[0]+'</div><div class="testi-plan">'+x[1]+'</div></div></div></div>';
+  });
+  h+='</div></div></section>';
+  return h;
+}
+
+function faqSection(){
+  const faqs=[
+    ['¿Cómo pago mi suscripción?','El pago se realiza por transferencia bancaria. Una vez pagas, subes tu comprobante desde el portal del cliente y nuestro equipo lo valida en minutos.'],
+    ['¿Cómo funciona la suscripción?','Eliges un plan (semanal, quincenal o mensual), te registras, pagas y comienzas a recibir tus almuerzos en la fecha de inicio que elijas.'],
+    ['¿Puedo suspender un día?','Sí. Desde la opción "Suspender entrega" de tu portal puedes elegir el día que no deseas recibir tu almuerzo, con al menos 24 horas de anticipación.'],
+    ['¿Puedo cambiar mi dirección?','Sí, puedes actualizarla en cualquier momento desde "Mi Perfil". Ten en cuenta que la nueva dirección debe estar dentro de una zona de cobertura activa.'],
+    ['¿Qué pasa si tengo alergias?','Puedes registrar tus alergias y restricciones alimentarias en tu perfil; nuestro equipo de cocina las tiene en cuenta en cada preparación.']
+  ];
+  let h='<section id="faq" class="section"><div class="wrap">';
+  h+='<div class="section-head"><span class="eyebrow">Preguntas frecuentes</span><h2>¿Tienes dudas? Aquí resolvemos las más comunes</h2></div>';
+  h+='<div class="faq-list">';
+  faqs.forEach((f,i)=>{
+    h+='<div class="faq-item'+(i===0?' open':'')+'"><button class="faq-q" data-faq="'+i+'">'+f[0]+'<span class="faq-chev">'+ic('chevD',16)+'</span></button>'+
+       '<div class="faq-a"><div class="faq-a-inner">'+f[1]+'</div></div></div>';
+  });
+  h+='</div></div></section>';
+  return h;
+}
+
+function ctaBand(){
+  return '<section class="section" style="padding-top:0"><div class="wrap"><div class="cta-band">'+
+   '<div><h3>Tu próximo almuerzo casero está a un clic.</h3><p>Regístrate hoy y empieza a recibir almuerzos frescos en la puerta de tu casa esta semana.</p></div>'+
+   '<div style="display:flex;gap:10px"><a href="#" class="btn btn-outline-light" data-go="login">Iniciar sesión</a><a href="#" class="btn" style="background:#fff;color:var(--orange-700)" data-go="register">Registrarme</a></div>'+
+   '</div></div></section>';
+}
+
+function footer(){
+  return '<footer id="site-footer" id="contacto"><div class="wrap">'+
+   '<div class="footer-grid">'+
+   '<div class="footer-brand"><div class="logo"><div class="logo-mark" style="background:#fff;padding:4px"><img src="logo.png" alt="La Coca de Jacks"></div><div class="logo-text">La Coca de Jacks</div></div>'+ 
+   '<p>Alimentación casera por suscripción para quienes no tienen tiempo de cocinar, pero no quieren renunciar a comer rico y sano.</p>'+
+   '<div class="social-row"><a class="social-ic">'+ic('instagram',16)+'</a><a class="social-ic">'+ic('facebook',16)+'</a><a class="social-ic">'+ic('whatsapp',16)+'</a></div></div>'+
+   '<div class="footer-col"><h5>Contacto</h5><a>'+ic('phone',13)+' &nbsp;(604) 444 5566</a><a>'+ic('mail',13)+' &nbsp;hola@lacocadejacks.co</a><a>'+ic('pin',13)+' &nbsp;Cra 43A #10-15, Medellín</a></div>'+
+   '<div class="footer-col"><h5>Horarios</h5><p>Lun – Vie: 7:00am – 7:00pm</p><p>Sábados: 8:00am – 2:00pm</p><p>Domingos y festivos cerrado</p></div>'+
+   '<div class="footer-col"><h5>Legal</h5><a href="#">Términos y condiciones</a><a href="#">Política de privacidad</a><a href="#">Política de tratamiento de datos</a><a href="#">PQRS</a></div>'+
+   '</div>'+
+   '<div class="footer-bottom"><span>© 2026 La Coca de Jacks S.A.S. Todos los derechos reservados.</span><span>Hecho con JackSoft <span style="display:inline-flex;align-items:center;justify-content:center;margin-left:4px;color:var(--gold-100)">'+ic('plate',14)+'</span></span></div>'+
+   '</div></footer>';
+}
+
+function wireLanding(){
+  document.querySelectorAll('[data-go]').forEach(el=>{
+    el.addEventListener('click',e=>{e.preventDefault();
+      if(el.dataset.go==='login')renderLogin();
+      if(el.dataset.go==='register')renderRegister();
+    });
+  });
+  document.querySelectorAll('.faq-q').forEach(q=>{
+    q.addEventListener('click',()=>{q.parentElement.classList.toggle('open');});
+  });
+}
+
+/* ============================= LOGIN / REGISTER ============================= */
+function renderLogin(){
+  const root=document.getElementById('root');
+  root.innerHTML='<div class="auth-wrap">'+
+   '<div class="auth-side"><div class="glow"></div>'+
+   '<div style="position:relative;z-index:1;display:flex;align-items:center;gap:10px"><div class="logo-mark" style="background:rgba(255,255,255,.18);padding:4px"><img src="logo.png" alt="La Coca de Jacks"></div><div style="font-family:var(--display);font-weight:800;font-size:17px">La Coca de Jacks</div></div>'+ 
+   '<div class="auth-quote">Tu almuerzo casero, sin salir de casa. Ingresa y revisa el estado de tu entrega de hoy.</div>'+
+   '<div class="auth-meta">PORTAL DEL CLIENTE · JACKSOFT</div></div>'+
+   '<div class="auth-form-side"><div class="auth-card">'+
+   '<a href="#" id="back-landing" style="font-size:12px;color:var(--ink-500);font-weight:600">← Volver al inicio</a>'+
+   '<h1 style="font-size:22px;margin:14px 0 6px 0">Bienvenido de nuevo</h1>'+
+   '<p style="color:var(--ink-500);font-size:13px;margin-bottom:22px">Ingresa a tu portal para ver tu suscripción y tus entregas.</p>'+
+   '<div class="field"><label>Correo electrónico</label><input type="email" value="laura.gomez@correo.com"/></div>'+
+   '<div class="field"><label>Contraseña</label><input type="password" value="12345678"/></div>'+
+   '<div style="display:flex;justify-content:flex-end;margin-bottom:18px"><a href="#" style="font-size:12px;color:var(--orange-600);font-weight:700">¿Olvidaste tu contraseña?</a></div>'+
+   '<button class="btn btn-primary btn-block" id="do-login" style="height:42px">Iniciar sesión</button>'+
+   '<p style="text-align:center;font-size:12.4px;color:var(--ink-500);margin-top:20px">¿No tienes cuenta? <a href="#" id="go-register" style="color:var(--orange-600);font-weight:700">Regístrate aquí</a></p>'+
+   '</div></div></div>';
+  document.getElementById('back-landing').addEventListener('click',e=>{e.preventDefault();renderLanding();});
+  document.getElementById('go-register').addEventListener('click',e=>{e.preventDefault();renderRegister();});
+  document.getElementById('do-login').addEventListener('click',()=>renderPortal());
+}
+
+function renderRegister(){
+  const root=document.getElementById('root');
+  root.innerHTML='<div class="auth-wrap">'+
+   '<div class="auth-side"><div class="glow"></div>'+
+   '<div style="position:relative;z-index:1;display:flex;align-items:center;gap:10px"><div class="logo-mark" style="background:rgba(255,255,255,.18);padding:4px"><img src="logo.png" alt="La Coca de Jacks"></div><div style="font-family:var(--display);font-weight:800;font-size:17px">La Coca de Jacks</div></div>'+ 
+   '<div class="auth-quote">Crea tu cuenta en menos de dos minutos y elige el plan que se ajuste a tu semana.</div>'+
+   '<div class="auth-meta">PORTAL DEL CLIENTE · JACKSOFT</div></div>'+
+   '<div class="auth-form-side"><div class="auth-card">'+
+   '<a href="#" id="back-landing2" style="font-size:12px;color:var(--ink-500);font-weight:600">← Volver al inicio</a>'+
+   '<h1 style="font-size:22px;margin:14px 0 6px 0">Crea tu cuenta</h1>'+
+   '<p style="color:var(--ink-500);font-size:13px;margin-bottom:20px">Con estos datos, tu domiciliario sabrá exactamente cómo llegar a ti.</p>'+
+   '<div class="field-row"><div class="field"><label>Nombre completo</label><input placeholder="Laura Gómez"/></div><div class="field"><label>Documento</label><input placeholder="43.221.887"/></div></div>'+
+   '<div class="field"><label>Correo electrónico</label><input type="email" placeholder="tucorreo@ejemplo.com"/></div>'+
+   '<div class="field"><label>Teléfono</label><input placeholder="300 000 0000"/></div>'+
+   '<div class="field"><label>Dirección de entrega</label><input placeholder="Cra 43A #10-15, El Poblado"/></div>'+
+   '<div class="field"><label>Modalidad de entrega</label><div class="radio-row"><div class="radio-opt sel"><span style="display:inline-flex;color:currentColor">'+ic('home',14)+'</span> Fija</div><div class="radio-opt"><span style="display:inline-flex;color:currentColor">'+ic('map',14)+'</span> Híbrida</div></div></div>'+
+   '<div class="field"><label>Contraseña</label><input type="password" placeholder="Crea una contraseña"/></div>'+
+   '<button class="btn btn-primary btn-block" id="do-register" style="height:42px;margin-top:6px">Crear cuenta y continuar</button>'+
+   '<p style="text-align:center;font-size:12.4px;color:var(--ink-500);margin-top:20px">¿Ya tienes cuenta? <a href="#" id="go-login" style="color:var(--orange-600);font-weight:700">Inicia sesión</a></p>'+
+   '</div></div></div>';
+  document.getElementById('back-landing2').addEventListener('click',e=>{e.preventDefault();renderLanding();});
+  document.getElementById('go-login').addEventListener('click',e=>{e.preventDefault();renderLogin();});
+  document.querySelectorAll('.radio-opt').forEach(r=>r.addEventListener('click',()=>{document.querySelectorAll('.radio-opt').forEach(x=>x.classList.remove('sel'));r.classList.add('sel');}));
+  document.getElementById('do-register').addEventListener('click',()=>{toast('Cuenta creada. ¡Bienvenida a La Coca de Jacks!');setTimeout(renderPortal,500);});
+}
+
+/* ============================= CLIENT PORTAL ============================= */
+const P_NAV=[
+ {id:'inicio',label:'Inicio',icon:'home'},
+ {id:'suscripcion',label:'Mi Suscripción',icon:'sub'},
+ {id:'pagos',label:'Mis Pagos',icon:'card'},
+ {id:'almuerzo',label:'Estado de mi Almuerzo',icon:'plate'},
+ {id:'domiciliario',label:'Seguimiento del Domiciliario',icon:'truck'},
+ {id:'suspender',label:'Suspender Entrega',icon:'pause'},
+ {id:'incidencia',label:'Reportar Incidencia',icon:'alert'},
+ {id:'perfil',label:'Mi Perfil',icon:'user'}
+];
+let pRoute='inicio';
+
+function renderPortal(){
+  document.getElementById('root').innerHTML=
+   '<div id="portal-app"><aside id="p-sidebar"></aside><div id="p-main"><header id="p-topbar"></header><main id="p-content"></main></div></div>';
+  pRoute='inicio';
+  renderPSidebar();renderPTopbar();renderPContent();
+}
+function renderPSidebar(){
+  const el=document.getElementById('p-sidebar');
+  let h='<div class="p-brand"><div class="logo-mark" style="width:34px;height:34px;font-size:16px;background:rgba(255,255,255,.18);padding:4px"><img src="logo.png" alt="La Coca de Jacks"></div><div class="logo-text" style="font-size:14.5px">La Coca de Jacks<span class="sub">Portal del cliente</span></div></div>';
+  h+='<div class="p-nav">';
+  P_NAV.forEach(n=>{h+='<button class="p-nav-item'+(pRoute===n.id?' active':'')+'" data-proute="'+n.id+'"><span class="ic-wrap">'+ic(n.icon,17)+'</span>'+n.label+'</button>';});
+  h+='</div>';
+  h+='<div class="p-sidebar-foot"><div class="p-help-card"><b>¿Necesitas ayuda?</b>Escríbenos por WhatsApp y te respondemos en minutos.<div style="margin-top:10px"><button class="btn btn-primary btn-sm btn-block">'+ic('whatsapp',14)+'Chatear ahora</button></div></div>'+
+     '<button class="p-nav-item" style="margin-top:12px;color:var(--red-600)" id="p-logout">'+ic('logout',17)+'Cerrar sesión</button></div>';
+  el.innerHTML=h;
+  el.querySelectorAll('[data-proute]').forEach(b=>b.addEventListener('click',()=>{pRoute=b.dataset.proute;renderPSidebar();renderPTopbar();renderPContent();}));
+  el.querySelector('#p-logout').addEventListener('click',()=>renderLanding());
+}
+const P_META={inicio:['Hola, Laura','Esto es lo que tenemos para ti hoy'],suscripcion:['Mi Suscripción','Consulta y gestiona tu plan actual'],
+ pagos:['Mis Pagos','Historial y comprobantes de tus pagos'],almuerzo:['Estado de mi Almuerzo','Sigue la preparación de tu almuerzo de hoy'],
+ domiciliario:['Seguimiento del Domiciliario','Ubicación en tiempo real de tu entrega'],suspender:['Suspender Entrega','Elige el día que no deseas recibir tu almuerzo'],
+ incidencia:['Reportar Incidencia','Cuéntanos qué pasó y te ayudamos a resolverlo'],perfil:['Mi Perfil','Tus datos, dirección y preferencias']};
+function renderPTopbar(){
+  const el=document.getElementById('p-topbar');
+  const m=P_META[pRoute];
+  el.innerHTML='<div class="p-title-block"><h2 style="display:flex;align-items:center;gap:8px"><span style="display:inline-flex;color:var(--orange-600)">'+ic('user',17)+'</span>'+m[0]+'</h2><div class="sub">'+m[1]+'</div></div>'+
+   '<button class="p-icon-btn">'+ic('bell',17)+'<span style="position:absolute;top:7px;right:7px;width:7px;height:7px;background:var(--orange-600);border-radius:50%;border:1.5px solid #fff"></span></button>'+
+   '<div class="p-avatar">LG</div>';
+}
+function renderPContent(){
+  document.getElementById('p-content').innerHTML=PR[pRoute]();
+  wirePortalActions();
+}
+function wirePortalActions(){
+  document.querySelectorAll('[data-ptoast]').forEach(b=>b.addEventListener('click',()=>toast(b.dataset.ptoast)));
+  document.querySelectorAll('[data-cal]').forEach(c=>c.addEventListener('click',()=>{
+    document.querySelectorAll('[data-cal]').forEach(x=>x.classList.remove('sel'));c.classList.add('sel');
+  }));
+  const susBtn=document.getElementById('confirm-suspend');
+  if(susBtn)susBtn.addEventListener('click',()=>openModal('¿Suspender esta entrega?','No recibirás almuerzo el día seleccionado. Podrás reactivar tu servicio automáticamente al día siguiente.','Sí, suspender',()=>toast('Entrega suspendida correctamente')));
+  const delBtn=document.getElementById('del-tag');
+  document.querySelectorAll('.chip-tag button').forEach(b=>b.addEventListener('click',()=>b.parentElement.remove()));
+  const incForm=document.getElementById('submit-incidencia');
+  if(incForm)incForm.addEventListener('click',()=>toast('Tu incidencia fue reportada. Te avisaremos por correo cuando sea resuelta.'));
+  const saveProf=document.getElementById('save-profile');
+  if(saveProf)saveProf.addEventListener('click',()=>toast('Perfil actualizado correctamente'));
+}
+
+const PR={};
+
+PR['inicio']=function(){
+  let h='<div class="p-hero-card"><div><h3>Tu almuerzo de hoy va en camino <span style="display:inline-flex;margin-left:8px;vertical-align:middle;color:#fff">'+ic('truck',20)+'</span></h3><p>Sancocho de gallina · Pedido #A-3391 · Llega aprox. a las 12:45 pm</p>'+
+   '<div style="margin-top:16px;display:flex;gap:10px"><button class="btn" style="background:#fff;color:var(--orange-700)" data-proute-jump="domiciliario">Ver ubicación</button></div></div><div class="p-hero-emoji">'+ic('plate',70)+'</div></div>';
+  h+='<div class="p-kpi-row">';
+  h+=pkpi('sub','var(--orange-100)','var(--orange-700)','Estado de suscripción','Activa',true);
+  h+=pkpi('calendar','var(--gold-100)','var(--gold-600)','Días restantes','18 días');
+  h+=pkpi('truck','var(--blue-100)','var(--blue-600)','Próxima entrega','Hoy · 12:45 pm');
+  h+=pkpi('plate','var(--green-100)','var(--green-600)','Almuerzo de hoy','En ruta');
+  h+=pkpi('card','#F0EBE3','var(--ink-700)','Último pago','$240.000 · Ago 01');
+  h+='</div>';
+  h+='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Tu semana</h3><span class="badge badge-info">Plan Mensual</span></div><div class="p-panel-body">';
+  h+='<div class="p-timeline"><div class="fill" style="width:66%"></div>';
+  [['Preparación','done'],['Empacado','done'],['En ruta','current'],['Entregado','']].forEach(s=>{
+    h+='<div class="tl-step '+s[1]+'"><div class="tl-dot">'+ic(s[1]==='done'?'check':'plate',16)+'</div><div class="t">'+s[0]+'</div></div>';
+  });
+  h+='</div><p style="text-align:center;font-size:12px;color:var(--ink-500);margin-top:22px">Tu almuerzo está en camino. Tiempo estimado de llegada: <b style="color:var(--ink-900)">12 minutos</b>.</p></div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Avisos</h3></div><div class="p-panel-body" style="display:flex;flex-direction:column;gap:12px">'+
+     pAlert('info','Tu suscripción se renueva el 31 de agosto.')+
+     pAlert('ok','Tu último pago fue validado con éxito.')+
+     pAlert('warn','Tienes 1 suspensión disponible este mes.')+
+     '</div></div>';
+  h+='</div>';
+  return h;
+};
+function pkpi(icon,bg,color,lbl,val,statusBadge){
+  return '<div class="p-kpi"><div class="ic" style="background:'+bg+';color:'+color+'">'+ic(icon,18)+'</div><div class="lbl">'+lbl+'</div><div class="val">'+(statusBadge?badge(val):val)+'</div></div>';
+}
+function pAlert(tone,text){
+  const map={info:['var(--blue-100)','var(--blue-600)'],ok:['var(--green-100)','var(--green-600)'],warn:['var(--gold-100)','var(--gold-600)']};
+  return '<div style="display:flex;gap:10px;align-items:flex-start;font-size:12.4px;color:var(--ink-700)"><span style="width:8px;height:8px;border-radius:50%;background:'+map[tone][1]+';margin-top:5px;flex-shrink:0"></span><span>'+text+'</span></div>';
+}
+
+PR['suscripcion']=function(){
+  let h='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Detalle del plan</h3>'+badge('Activa')+'</div><div class="p-panel-body">';
+  h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px 24px">';
+  h+=infoField('Tipo de plan','Plan Mensual');
+  h+=infoField('Valor','$240.000 COP');
+  h+=infoField('Fecha de inicio','01 Ago 2026');
+  h+=infoField('Fecha de vencimiento','31 Ago 2026');
+  h+=infoField('Preferencia de proteína','Pollo y pescado');
+  h+=infoField('Restricciones alimentarias','Sin gluten');
+  h+='</div>';
+  h+='<div style="display:flex;gap:10px;margin-top:26px"><button class="btn btn-primary" data-ptoast="Tu plan fue renovado con éxito">Renovar plan</button><button class="btn btn-ghost" data-ptoast="Solicitud de reingreso enviada">Reingresar</button></div>';
+  h+='</div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Historial de planes</h3></div><div class="p-panel-body">';
+  h+='<table><thead><tr><th>Plan</th><th>Periodo</th><th>Estado</th></tr></thead><tbody>';
+  [['Mensual','Ago 2026','Activa'],['Mensual','Jul 2026','Vencida'],['Quincenal','15-30 Jun','Vencida']].forEach(r=>{
+    h+='<tr><td class="strong">'+r[0]+'</td><td class="mono">'+r[1]+'</td><td>'+badge(r[2])+'</td></tr>';
+  });
+  h+='</tbody></table></div></div>';
+  h+='</div>';
+  return h;
+};
+function infoField(l,v){return '<div><div style="font-size:10.8px;text-transform:uppercase;color:var(--ink-300);font-family:var(--mono);margin-bottom:4px">'+l+'</div><div style="font-size:13.6px;font-weight:700;color:var(--ink-900)">'+v+'</div></div>';}
+
+PR['pagos']=function(){
+  let h='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Historial de pagos</h3></div><div class="p-panel-body">';
+  h+='<table><thead><tr><th>Fecha</th><th>Concepto</th><th>Valor</th><th>Estado</th></tr></thead><tbody>';
+  [['01 Ago 2026','Plan Mensual','$240.000','Al día'],['01 Jul 2026','Plan Mensual','$240.000','Al día'],['15 Jun 2026','Plan Quincenal + cocas','$198.000','Al día'],['30 May 2026','Plan Quincenal','$128.000','Rechazado']].forEach(r=>{
+    h+='<tr><td class="mono">'+r[0]+'</td><td class="strong">'+r[1]+'</td><td class="mono">'+r[2]+'</td><td>'+badge(r[3])+'</td></tr>';
+  });
+  h+='</tbody></table></div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Subir comprobante</h3></div><div class="p-panel-body">';
+  h+='<div class="upload-box">'+ic('upload',26)+'<div style="margin-top:8px;font-weight:600;color:var(--ink-700)">Arrastra tu comprobante o haz clic para subirlo</div><div style="margin-top:4px">Formatos JPG, PNG o PDF · Máx. 5MB</div></div>';
+  h+='<div class="field" style="margin-top:16px"><label>Valor transferido</label><input placeholder="$240.000"/></div>';
+  h+='<div class="field"><label>Referencia / número de comprobante</label><input placeholder="Opcional"/></div>';
+  h+='<button class="btn btn-primary btn-block" data-ptoast="Comprobante enviado. Lo validaremos en minutos.">Enviar comprobante</button>';
+  h+='</div></div></div>';
+  return h;
+};
+
+PR['almuerzo']=function(){
+  let h='<div class="p-panel" style="margin-bottom:18px"><div class="p-panel-head"><h3>Pedido #A-3391 · Hoy</h3><span class="badge badge-info">En ruta</span></div><div class="p-panel-body">';
+  h+='<div class="p-timeline"><div class="fill" style="width:66%"></div>';
+  [['En preparación','done','11:10 am'],['Empacado','done','11:52 am'],['En ruta','current','12:05 pm'],['Entregado','','Estimado 12:45 pm']].forEach(s=>{
+    h+='<div class="tl-step '+s[1]+'"><div class="tl-dot">'+ic(s[1]==='done'?'check':(s[0]==='En ruta'?'truck':'plate'),16)+'</div><div class="t">'+s[0]+'</div><div class="s">'+s[2]+'</div></div>';
+  });
+  h+='</div></div></div>';
+  h+='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Detalle del almuerzo</h3></div><div class="p-panel-body" style="display:grid;grid-template-columns:1fr 1fr;gap:18px">'+
+     infoField('Producto','Sancocho de gallina')+infoField('Porciones','1')+infoField('Preferencia aplicada','Sin gluten')+infoField('Repartidor asignado','Julián Ospina')+'</div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>¿Algún problema con tu pedido?</h3></div><div class="p-panel-body">'+
+     '<p style="font-size:12.6px;color:var(--ink-500);margin-bottom:14px">Si notas algo distinto a lo esperado, puedes reportarlo directamente desde aquí.</p>'+
+     '<button class="btn btn-ghost btn-block" data-proute-jump="incidencia">'+ic('alert',15)+'Reportar incidencia</button></div></div>';
+  h+='</div>';
+  return h;
+};
+
+PR['domiciliario']=function(){
+  let h='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Ubicación en tiempo real</h3><span class="badge badge-info">● En vivo</span></div><div class="p-panel-body">';
+  h+='<div class="map-mock"><div class="map-grid"></div>'+
+     '<div class="map-route-line" style="top:52%;left:14%;width:120px;transform:rotate(-10deg);background:var(--orange-500)"></div>'+
+     '<div class="map-pin" style="top:48%;left:16%;background:var(--orange-600)"></div>'+
+     '<div class="map-pin" style="top:60%;left:70%;background:var(--ink-900)"></div>'+
+     '<div class="map-eta"><b style="display:block;font-size:13px;margin-bottom:3px">Julián Ospina</b><span style="color:var(--ink-500)">Llega en ~12 min · 1.4 km</span></div>'+
+     '</div></div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Detalle de la entrega</h3></div><div class="p-panel-body" style="display:flex;flex-direction:column;gap:16px">'+
+     infoField('Repartidor','Julián Ospina')+infoField('Vehículo','Moto · Placa ABC-123')+infoField('Ruta','Ruta Poblado-Norte')+infoField('Hora estimada','12:45 pm')+
+     '<button class="btn btn-ghost btn-block" data-ptoast="Llamando al domiciliario…">'+ic('phone',15)+'Contactar domiciliario</button></div></div>';
+  h+='</div>';
+  return h;
+};
+
+PR['suspender']=function(){
+  let h='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Selecciona el día a suspender</h3></div><div class="p-panel-body">';
+  h+='<div class="p-cal-grid">';
+  ['Lun','Mar','Mié','Jue','Vie','Sáb','Dom'].forEach(d=>h+='<div class="p-cal-dow">'+d+'</div>');
+  const days=[{n:'',off:true},{n:'',off:true},{n:'',off:true},{n:'',off:true},{n:'',off:true},{n:1},{n:'',off:true},
+    {n:3},{n:4},{n:5,disabled:true},{n:6},{n:7,sel:true},{n:8,off:true},{n:'',off:true},
+    {n:10},{n:11},{n:12},{n:13},{n:14},{n:15,off:true},{n:'',off:true}];
+  days.forEach(d=>{
+    h+='<div class="p-cal-cell'+(d.off?' off':'')+(d.sel?' sel':'')+'"'+(!d.off&&d.n?' data-cal':'')+'>'+d.n+'</div>';
+  });
+  h+='</div>';
+  h+='<div class="field" style="margin-top:20px"><label>Motivo (opcional)</label><textarea placeholder="Cuéntanos por qué deseas suspender esta entrega…"></textarea></div>';
+  h+='<button class="btn btn-primary" id="confirm-suspend" style="margin-top:4px">Confirmar suspensión</button>';
+  h+='</div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Tus suspensiones</h3></div><div class="p-panel-body">'+
+     '<div style="display:flex;flex-direction:column;gap:12px">'+
+     susItem('07 Ago 2026','Solicitada')+susItem('22 Jul 2026','Aplicada')+susItem('10 Jul 2026','Aplicada')+
+     '</div><div class="alert" style="background:var(--gold-100);color:#7A5A0C;margin-top:16px;padding:12px 14px;border-radius:11px;font-size:12.2px">Te quedan <b>1 suspensión</b> disponible este mes según tu plan.</div></div></div>';
+  h+='</div>';
+  return h;
+};
+function susItem(date,status){return '<div style="display:flex;justify-content:space-between;align-items:center;padding:11px 13px;border:1px solid var(--line-soft);border-radius:10px"><span style="font-size:12.8px;font-weight:600" class="mono">'+date+'</span>'+badge(status==='Aplicada'?'Activo':'Pendiente')+'</div>';}
+
+PR['incidencia']=function(){
+  let h='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Nuevo reporte</h3></div><div class="p-panel-body">';
+  h+='<div class="field"><label>Tipo de incidencia</label><select><option>Coca defectuosa</option><option>Cliente ausente</option><option>Dirección incorrecta</option><option>Calidad del almuerzo</option><option>Otro</option></select></div>';
+  h+='<div class="field"><label>Descripción</label><textarea placeholder="Cuéntanos qué sucedió con el mayor detalle posible…"></textarea></div>';
+  h+='<div class="field"><label>Adjuntar fotografías</label><div class="upload-box">'+ic('camera',24)+'<div style="margin-top:8px;font-weight:600;color:var(--ink-700)">Sube hasta 3 fotos como evidencia</div></div>'+
+     '<div class="thumb-row"><div class="thumb">'+ic('camera',20)+'</div><div class="thumb">'+ic('camera',20)+'</div></div></div>';
+  h+='<button class="btn btn-primary btn-block" id="submit-incidencia" style="margin-top:6px">Enviar reporte</button>';
+  h+='</div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Tus reportes anteriores</h3></div><div class="p-panel-body">';
+  h+='<table><thead><tr><th>Tipo</th><th>Fecha</th><th>Estado</th></tr></thead><tbody>';
+  [['Coca defectuosa','28 Jul 2026','Resuelto'],['Cliente ausente','15 Jun 2026','Resuelto'],['Calidad del almuerzo','02 Jun 2026','Resuelto']].forEach(r=>{
+    h+='<tr><td class="strong">'+r[0]+'</td><td class="mono">'+r[1]+'</td><td>'+badge(r[2])+'</td></tr>';
+  });
+  h+='</tbody></table></div></div>';
+  h+='</div>';
+  return h;
+};
+
+PR['perfil']=function(){
+  let h='<div class="p-grid-2">';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Datos personales</h3></div><div class="p-panel-body">';
+  h+='<div class="field-row"><div class="field"><label>Nombre completo</label><input value="Laura Gómez"/></div><div class="field"><label>Documento</label><input value="43.221.887"/></div></div>';
+  h+='<div class="field-row"><div class="field"><label>Correo electrónico</label><input value="laura.gomez@correo.com"/></div><div class="field"><label>Teléfono</label><input value="300 445 1287"/></div></div>';
+  h+='<div class="field"><label>Dirección de entrega</label><input value="Cra 43A #10-15, El Poblado, Medellín"/></div>';
+  h+='<div class="field"><label>Modalidad de entrega</label><div class="radio-row"><div class="radio-opt sel"><span style="display:inline-flex;color:currentColor">'+ic('home',14)+'</span> Fija</div><div class="radio-opt"><span style="display:inline-flex;color:currentColor">'+ic('map',14)+'</span> Híbrida</div></div></div>';
+  h+='<div class="field"><label>Restricciones alimentarias</label><div>' + ['Sin gluten','Bajo en sodio'].map(t=>'<span class="chip-tag">'+t+'<button>'+ic('pause',12)+'</button></span>').join('') + '</div></div>';
+  h+='<div class="field"><label>Alergias</label><div>' + ['Maní'].map(t=>'<span class="chip-tag" style="background:var(--red-100);color:var(--red-600)">'+t+'<button>'+ic('pause',12)+'</button></span>').join('') + '</div></div>';
+  h+='<button class="btn btn-primary" id="save-profile" style="margin-top:6px">Guardar cambios</button>';
+  h+='</div></div>';
+  h+='<div class="p-panel"><div class="p-panel-head"><h3>Cambiar contraseña</h3></div><div class="p-panel-body">'+
+     '<div class="field"><label>Contraseña actual</label><input type="password" placeholder="••••••••"/></div>'+
+     '<div class="field"><label>Nueva contraseña</label><input type="password" placeholder="••••••••"/></div>'+
+     '<div class="field"><label>Confirmar nueva contraseña</label><input type="password" placeholder="••••••••"/></div>'+
+     '<button class="btn btn-ghost btn-block" data-ptoast="Contraseña actualizada correctamente">'+ic('lock',15)+'Actualizar contraseña</button>'+
+     '</div></div>';
+  h+='</div>';
+  return h;
+};
+
+document.addEventListener('click',e=>{
+  const jump=e.target.closest('[data-proute-jump]');
+  if(jump){pRoute=jump.dataset.prouteJump;renderPSidebar();renderPTopbar();renderPContent();}
+});
+
+/* ============================= BOOT ============================= */
+renderLanding();
+</script>
+</body>
+</html>
