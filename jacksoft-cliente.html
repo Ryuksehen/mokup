@@ -5,37 +5,38 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>La Coca de Jacks — Almuerzos caseros por suscripción</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Work+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --orange-700:#C2410C;
-  --orange-600:#EA580C;
-  --orange-500:#F1793D;
-  --orange-100:#FDEAD9;
-  --orange-50:#FEF5EC;
-  --gold-600:#C6890A;
-  --gold-100:#FBF0D8;
-  --green-600:#3E8A63;
-  --green-100:#E7F3EC;
-  --red-600:#C0392B;
-  --red-100:#FBE7E4;
+  --orange-700:#D64E09;
+  --orange-600:#F2641A;
+  --orange-500:#FF7F38;
+  --orange-100:#FFE3A8;
+  --orange-50:#FFF6EA;
+  --gold-600:#E0A52E;
+  --gold-100:#FFC857;
+  --green-600:#5E8D62;
+  --green-100:#DCEEDD;
+  --red-600:#C23824;
+  --red-100:#FDE8E6;
   --blue-600:#2F5F8A;
   --blue-100:#E1EAF3;
-  --ink-900:#241C16;
-  --ink-700:#57493E;
-  --ink-500:#8C7B6C;
-  --ink-300:#CBBEAE;
-  --line:#EFE4D6;
-  --line-soft:#F7F0E6;
-  --bg:#FAF7F2;
+  --ink-900:#2B2118;
+  --ink-700:#564539;
+  --ink-500:#857567;
+  --ink-300:#C7BBA8;
+  --line:#EFE6D8;
+  --line-soft:#F7F1E6;
+  --bg:#FAF6F0;
   --card:#FFFFFF;
   --radius:16px;
   --radius-sm:10px;
-  --shadow-sm:0 1px 3px rgba(90,60,20,.07);
-  --shadow-md:0 12px 28px rgba(90,60,20,.10);
+  --shadow-sm:0 1px 3px rgba(43,33,24,.06);
+  --shadow-md:0 12px 28px rgba(43,33,24,.09);
   --mono:'JetBrains Mono',monospace;
-  --display:'Manrope',sans-serif;
-  --body:'Inter',sans-serif;
+  --display:'Baloo 2',cursive,sans-serif;
+  --body:'Work Sans','Inter',sans-serif;
 }
 *{box-sizing:border-box;}
 html{scroll-behavior:smooth;}
@@ -47,7 +48,7 @@ button{font-family:var(--body);cursor:pointer;}
 img{max-width:100%;display:block;}
 .wrap{max-width:1180px;margin:0 auto;padding:0 28px;}
 #site-header .wrap{max-width:none;width:100%;margin:0;padding:0 28px;}
-.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--orange-600);font-weight:700;}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:0.5px;color:var(--orange-600);font-weight:700;}
 .btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;font-size:14px;font-weight:700;padding:12px 20px;border:1.5px solid transparent;white-space:nowrap;font-family:var(--body);}
 .btn-primary{background:var(--orange-600);color:#fff;box-shadow:0 8px 18px rgba(234,88,12,.28);}
 .btn-primary:hover{background:var(--orange-700);}
@@ -72,7 +73,7 @@ img{max-width:100%;display:block;}
 .logo{display:flex;align-items:center;gap:10px;flex:0 0 auto;}
 .logo-mark{width:38px;height:38px;border-radius:11px;background:linear-gradient(150deg,var(--orange-500),var(--orange-700));display:flex;align-items:center;justify-content:center;font-size:19px;}
 .logo-text{font-family:var(--display);font-weight:800;font-size:16.5px;line-height:1.15;}
-.logo-text .sub{display:block;font-size:9.5px;color:var(--ink-500);font-family:var(--mono);letter-spacing:.6px;text-transform:uppercase;font-weight:500;}
+.logo-text .sub{display:block;font-size:10px;color:var(--ink-500);font-family:var(--body);letter-spacing:0.2px;font-weight:500;}
 .main-nav{display:flex;align-items:center;justify-content:center;gap:26px;flex:1 1 auto;min-width:0;}
 .main-nav a{font-size:13.6px;font-weight:600;color:var(--ink-700);white-space:nowrap;}
 .main-nav a:hover{color:var(--orange-600);}
@@ -135,7 +136,7 @@ img{max-width:100%;display:block;}
 .menu-card{overflow:hidden;}
 .menu-photo{height:130px;display:flex;align-items:center;justify-content:center;font-size:52px;}
 .menu-body{padding:14px 15px 16px 15px;}
-.menu-day{font-family:var(--mono);font-size:10.3px;color:var(--orange-600);text-transform:uppercase;letter-spacing:.4px;font-weight:700;}
+.menu-day{font-family:var(--body);font-size:11px;color:var(--orange-600);letter-spacing:0.2px;font-weight:700;}
 .menu-body h4{font-size:13.6px;margin:5px 0 6px 0;}
 .menu-body p{font-size:11.6px;color:var(--ink-500);line-height:1.45;}
 @media(max-width:980px){.menu-grid{grid-template-columns:repeat(3,1fr);}}
@@ -284,7 +285,7 @@ img{max-width:100%;display:block;}
 .tl-step .s{font-size:10.6px;color:var(--ink-300);font-family:var(--mono);}
 
 table{width:100%;border-collapse:collapse;}
-thead th{text-align:left;font-size:10.6px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-300);font-family:var(--mono);font-weight:500;padding:11px 4px;border-bottom:1px solid var(--line);}
+thead th{text-align:left;font-size:11.5px;letter-spacing:0.2px;color:var(--ink-500);font-family:var(--body);font-weight:600;padding:11px 4px;border-bottom:1px solid var(--line);}
 tbody td{padding:13px 4px;border-bottom:1px solid var(--line-soft);font-size:13px;color:var(--ink-700);}
 tbody tr:last-child td{border:none;}
 td.strong{color:var(--ink-900);font-weight:700;}
